@@ -1,7 +1,7 @@
-Vad är det?
+# Vad är det?
 
 
-Standarder
+## Standarder
 Koden skall skrivas enligt följande standarder: 
 
 class 		Super_class (Alltid uppercase på första)
