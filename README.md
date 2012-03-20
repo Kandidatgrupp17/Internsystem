@@ -1,7 +1,7 @@
 # CHARM-Internsystem
 
 ## Beskrivning
-
+Det här projektet är själva internsystemet åt CHARM, Chalmers Studentkårs Arbetsmarknadsdagar.
 
 ## Standarder
 Koden skall skrivas enligt följande standarder: 
