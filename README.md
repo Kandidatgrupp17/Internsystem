@@ -6,15 +6,15 @@ Det här projektet är själva internsystemet åt CHARM, Chalmers Studentkårs A
 ## Standarder
 Koden skall skrivas enligt följande standarder: 
 
-class 		Super_class (Alltid uppercase på första)
+	class 		Super_class (Alltid uppercase på första)
 
-function	get_files() (Alltid små bokstäver)
+	function	get_files() (Alltid små bokstäver)
 
-function	_get_files() (privat funktion)
+	function	_get_files() (privat funktion)
 
-variabler	$last_city , $i (endast i for-loop)
+	variabler	$last_city , $i (endast i for-loop)
 
-DB-tables	Charm_*
+	DB-tables	Charm_*
 
 Indentering:	Allman
 
