@@ -9,7 +9,7 @@ class Registration extends CI_Controller
   function is_valid_mail($email)
   {
       $array = explode('@',$email);
-      if($array['1'] == 'student.chalmers.se')
+      if($array['1'] == 'student.chalmers.se' AND $array['0'] !== '')
       {
             return TRUE;
       }
@@ -18,26 +18,24 @@ class Registration extends CI_Controller
   }
   function insert()
   {
-    if($this->input->post('passwordconfirm') == $this->input->post('password') 
-                                        &&  $this->is_valid_mail($this->input->post('email')))
+    $this->load->library('form_validation');
+    $this->form_validation->set_rules('Email', 'Email', 'required');
+	$this->form_validation->set_rules('password', 'Password', 'required');
+	$this->form_validation->set_rules('passwordconfirm', 'Passwordconfirm', 'required');
+    if($this->form_validation->run())
     {
-    //Behöver validera email
-    $input = array('name' => $this->input->post('username'),
-                            'password' =>  $this->input->post('password'),
-                            'email' => $this->input->post('email'));
-    
-    //$this->load->library('form_validation');
-    //Sätt upp regler!
-	//if ($this->form_validation->run() == FALSE)
-	//{
-			//$this->load->view('login_view');
-	//}
-	//else
-	//{
-        $this->load->model('registration_model','',TRUE);   
-        $this->registration_model->insert_to_db($input);  
-	//}
+    if($this->input->post('passwordconfirm') == $this->input->post('password') 
+        &&  $this->is_valid_mail($this->input->post('Email')))
+    {
+    $input = array( 'Email' => $this->input->post('Email'), 'Password' =>  $this->input->post('password'));
+    $this->load->model('user_model','',TRUE);   
+    $this->user_model->insert_to_db($input);  
     }
-        $this->load->view('login_view');
+    $this->load->view('login_view');
    }
+   else
+   {
+       $this->load->view('registration_view');
+    }
+}
 }

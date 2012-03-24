@@ -2,17 +2,16 @@
 $this->load->helper('form');
 echo form_open('registration/insert');
 
-$input = array('name' => 'username');
-echo "username: " . form_input($input) . "<br>";
-
-$input = array('name' => 'email');
-echo "email: " . form_input($input) . "<br>";
+$input = array('name' => 'Email');
+echo "Email: " . form_input($input) . "<br>";
 
 $input = array('name' => 'password');
-echo "password: " . form_input($input) . "<br>";
+echo "Password: " . form_password($input) . "<br>";
 
 $input = array('name' => 'passwordconfirm');
-echo "confirm pw:  " . form_input($input) . "<br>";
+echo "Confirm pw:  " . form_password($input) . "<br>";
 echo form_submit('','Registrera');
+
+echo validation_errors();
 
 ?>

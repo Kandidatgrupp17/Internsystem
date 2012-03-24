@@ -6,7 +6,7 @@ class Login_model extends CI_Model
     {
         $this->load->database();
         $this->load->helper('security');
-        return $this->db->get_where('users', array('name' => $username , 'password' => do_hash($password)));
+        return $this->db->get_where('users', array('Email' => $username , 'Password' => do_hash($password)));
     }
     
 }
