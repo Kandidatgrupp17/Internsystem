@@ -1,0 +1,12 @@
+<?php
+
+class Student extends User {
+    $username = "";
+    $password = "";
+    
+
+
+}
+
+
+?>

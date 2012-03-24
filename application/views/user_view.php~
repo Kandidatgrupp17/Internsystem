@@ -1,0 +1,10 @@
+<?php
+
+foreach($query as $row): 
+    echo $row->title; 
+    echo $row->body;
+endforeach;
+
+
+
+?>

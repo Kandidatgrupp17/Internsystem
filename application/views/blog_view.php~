@@ -1,0 +1,34 @@
+<html>
+<?php
+foreach($query as $row): ?>
+    <?=$row->title?>
+    <ol>
+    <?=$row->body?>
+    </ol>
+<?php
+endforeach;
+$this->load->helper('form');
+echo form_open('blog/insert');
+$usernameForm = array(
+              'name'        => 'title',
+              'id'          => 'title',
+                'maxlength'   => '100',
+              'size'        => '50',
+              'style'       => 'width:50%',
+            );
+            
+$contentForm = array(
+              'name'        => 'body',
+              'id'          => 'body',
+                'maxlength'   => '100',
+              'size'        => '50',
+              'style'       => 'width:50%',
+            );
+echo "Title" . form_input($usernameForm);
+echo "<br>";
+echo "Content" . form_input($contentForm);
+echo "<br>";
+echo form_submit('mysubmit', 'Submit Post!');
+
+?>
+</html>
