@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/CHARM-dev';
+$config['base_url']	= 'http://localhost/Internsystem';
 
 /*
 |--------------------------------------------------------------------------
