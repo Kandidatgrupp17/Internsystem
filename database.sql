@@ -1,0 +1,11 @@
+
+
+CREATE DATABASE `CHARM_System` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `CHARM_System`;
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `UserID` int(11) NOT NULL AUTO_INCREMENT,
+  `Email` varchar(30) NOT NULL,
+  `Password` text NOT NULL,
+  PRIMARY KEY (`UserID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
