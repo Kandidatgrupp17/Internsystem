@@ -1,23 +1,32 @@
 <?php
-/*
-Location: CI/application/controllers
-Accessed at: /CI/index.php/user
-
-*/
 class User extends CI_Controller
 {
-    $username = "";
-    $password = "";
-    
+    $userID = '';
+    $email = '';
+    $password = '';
     
     function index()
   	{
-        $this->load->model('User_model', '', TRUE);
-        $data['query'] = $this->User_model->get_users();
-        $this->load->view('user_view', $data);
+        
     }
-    
-}
 
+    function __constructor($email,$password)
+    {
+        $this->is_name_taken($email);
+        $this->email = $email;
+        $this->password = $password;
+    }
+        
+  /*
+    Insert - Lägger till användaren i databasens tabell users
+    Email = Username, kan vara förvirrande. Kolla upp det!
+    */
+  function insert($username,$password,$passwordconfirm)
+  {
+    $user = new User($this->input->post('Email'), $this->input->post('password')); 
+    $user->insert_to_db();
+    redirect('login');
+   }
+}
 
 ?>

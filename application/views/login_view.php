@@ -1,7 +1,6 @@
 <?php
-
-$this->load->helper('form');
 echo form_open('login/check');
+
 //Username-formulär
 $array = array('name' => 'username');
 echo "Username: " . form_input($array) . "<br>";
