@@ -1,5 +1,0 @@
-<html>
-
-Hej <?php echo $title?>
-
-</html>
