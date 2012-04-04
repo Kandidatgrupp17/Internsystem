@@ -1,18 +1,27 @@
+<html>
+<div class="loginbox">
 <?php
-echo form_open('login/check');
+$this->load->helper('html');
 
-//Username-formulär
-$array = array('name' => 'username');
-echo "Username: " . form_input($array) . "<br>";
+echo link_tag('css/mystyle.css');
+$arrayuser = array('name' => 'username');
+$arraypw = array('name' => 'password');
 
-//Password-formulär
-$array = array('name' => 'password');
-echo "Password: " . form_password($array) . "<br>";
+?>
+<body>
+<?php echo form_open('login/check'); ?>
+<table>
+<tr><td>Username:</td> <td><?php echo form_input($arrayuser);?></td></tr>
+<tr><td>Password:</td> <td><?php echo form_password($arraypw);?></td></tr>
 
-//Knapp
+</table>
+<?php 
 echo form_submit('Logga in', 'Logga in');
 $this->load->helper('url');
 echo "<br>" . anchor ('registration/index', 'Registrera dig');
 echo validation_errors();
 
 ?>
+</div>
+</body>
+</html>
