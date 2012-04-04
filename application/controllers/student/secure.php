@@ -4,7 +4,7 @@ class Secure extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->check();
+        $this->__check();
     }
 	/*
 	 * Ladda meny-vyn för studenter
@@ -28,7 +28,7 @@ class Secure extends CI_Controller
 	 * Funktionen för att kontrollera att användaren är 
 	 * inloggad och ok att titta på systemet.
 	*/
-    function check()
+    function __check()
     {  
         //Osäkert!
         if($this->session->userdata('loggedin') == '' OR $this->session->userdata('loggedin') == FALSE)
