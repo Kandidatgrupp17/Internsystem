@@ -28,6 +28,22 @@ class Registration extends CI_Controller
       return FALSE;
       
   }
+  private function __send_mail()
+  {
+		$url = base_url() . "index.php/registration/";
+		$to = "ocarlsson3@gmail.com";
+		$subject = "Aktivering av användarkonto";	
+		// compose headers
+		$headers = "From: noreply@oscarlsson.se\r\n";
+		// compose message
+		$message = "Du har registrerat dig på CHARM's hemsida";
+		$message .= "Ytterliggare ett mail kommer när värdansökan öppnar";
+		$message .= $url;
+		$message = wordwrap($message, 70);	
+		// send email
+		mail($to, $subject, $message, $headers);    
+  }
+  
   
   /*
     Insert - Lägger till användaren i databasens tabell users
