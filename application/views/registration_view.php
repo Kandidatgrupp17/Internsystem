@@ -1,17 +1,49 @@
+<h1>Registrering</h1>
 <?php
 echo form_open('registration/insert');
+?>
+<table>
+<tr>
+<td>Email</td>
+<td><input type="text" style="width:300;" name="Email"></input></td></tr>
+</tr>
+<tr>
+<td>Förnamn</td>
+<td><input type="text" style="width:300;" name="FirstName"></input></td></tr>
+</tr>
+<tr>
+<td>Efternamn</td>
+<td><input type="text" style="width:300;" name="LastName" ></input> </td>
+</tr>
+<tr>
+<td>Sektion</td>
+<td><?php $this->load->helper('form');
+ echo form_dropdown('Institute', $Sektioner);?> </td>
+</tr>
 
-$input = array('name' => 'Email');
-echo "Email: " . form_input($input) . "<br>";
+<tr>
+<td>Lösenord</td>
+<td><input type="password" style="width:300;" name="Password"</input> </td>
+</tr>
+<tr>
+<td>Lösenord igen</td>
+<td><input type="password" style="width:300;" name="Passwordconfirm"</input> </td>
+</tr>
 
-$input = array('name' => 'password');
-echo "Password: " . form_password($input) . "<br>";
-
-$input = array('name' => 'passwordconfirm');
-echo "Confirm pw:  " . form_password($input) . "<br>";
-echo form_submit('','Registrera');
+<input type="hidden" name="ActID" value="1"></input> 
+<?php
+/*
+ * Datumet
+ * */
+$this->load->helper('date');
+$datestring = "%Y-%m-%d"; ?>
+<input type="hidden" name="Registered" value="<?php echo mdate($datestring);?>"></input> 
+<tr>
+<td><?php echo form_submit('','Registrera');?></td>
+</tr>
+</table>
+<?php 
 echo "<br>";
 echo anchor('login','Bakåt');
 echo validation_errors();
-
 ?>
