@@ -11,22 +11,29 @@ class Secure extends CI_Controller
 	*/   
     function index()
     {
-      $this->load->view('student/student_menu',$this->session->all_userdata());
+      $this->load->view('student/student_menu', $this->__user_data());
     }
-    
     /*
-     * Funktion för att plocka ut användardatan för den inloggade
-     * ej färdig.
+     * En användare vill updatera sin information -> Inte vårat jobb!
+     * */
+    function update()
+    {
+    	
+    
+    
+    }
+    /*
+     * Funktion för att plocka ut användardatan för den inloggade. 
+     * Grymt fult löst!!!!! ÄNDRA DET HÄR
      */
     
     private function __user_data()
     {	
-      $this->load->model('user_model');
       $sessiondata = $this->session->all_userdata();
-      $array = array('UserID' => $sessiondata['UserID']);
-      $querydata = $this->user_model->get_user($array);
-      $querydata['password'] = '';
-      return $querydata->result_array();
+      $this->load->model('user_model');
+      $user = $this->user_model->get_user(array('UserID' => $sessiondata['UserID']));
+      $user = $user->result_array();
+      return $user['0'];
     } 
 	/*
 	 * Funktionen för att kontrollera att användaren är 
