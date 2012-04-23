@@ -12,8 +12,12 @@ class Secure extends CI_Controller
     function index()
     {
       $this->load->view('student/student_menu',$this->session->all_userdata());
-      $this->load->view('student/student');  
     }
+    
+    /*
+     * Funktion för att plocka ut användardatan för den inloggade
+     * ej färdig.
+     */
     
     private function __user_data()
     {	

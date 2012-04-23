@@ -33,6 +33,17 @@ class User_model extends CI_Model
        }
        return false;
     }
+	function insert_to_tempdb($array)
+    {
+        if(! $this->is_name_taken($array['Email']))
+        {
+            $this->load->helper('security');
+            $array['Password'] = do_hash($array['Password']);
+            $this->db->insert('temp_users', $array);
+			return true;
+       }
+       return false;
+    }
    
    /*
     Kollar om ett specifikt användarnamn finns i databasen
