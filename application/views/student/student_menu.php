@@ -5,7 +5,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  * 
  * */
 
-$input = array('Error' => '','UserID' => $UserID, 'Email' => $Email, 'FirstName' => $FirstName, 'LastName' => $LastName, 'Institute' => $Institute);
+$input = array('Error' => '','UserID' => $UserID, 'Email' => $Email, 'FirstName' => $FirstName, 'LastName' => $LastName, 'AllInstitute' => $AllInstitute, 'Institute' => $Institute);
 
 $this->load->view('student/student_menu_val.php');
 $this->load->view('student/student',$input);  

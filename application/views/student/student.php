@@ -17,9 +17,9 @@ Redigera dina användaruppgifter: <br>
 <td>Efternamn</td>
 <td><input type="text" style="width:300;" name="LastName" value="<?php echo $LastName;?>"></input> </td>
 </tr>
-<tr>
 <td>Sektion</td>
-<td><input type="text" style="width:300;" name="Institute" value="<?php echo $Institute;?>"></input> </td>
+<td><?php $this->load->helper('form');
+ echo form_dropdown('Institute', $AllInstitute);?> </td>
 </tr>
 <tr>
 <td><input type="submit" value="Ändra"></input></td>
