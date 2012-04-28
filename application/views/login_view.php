@@ -23,5 +23,9 @@ echo validation_errors();
 
 ?>
 </div>
+<br /><br />
+
+<p><?php echo anchor('foretag/upload', 'Snabb lank till foretagsimport'); ?></p>
+
 </body>
 </html>
