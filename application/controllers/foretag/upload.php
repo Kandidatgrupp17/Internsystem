@@ -10,7 +10,7 @@ class Upload extends CI_Controller {
 
 	function index()
 	{
-    
+        //funktion för att printa alla företag i en tabell på uploadform_view sidan
         $this->load->model('company_model');
         $this->load->library('table');
         $input['companies'] = $this->company_model->get_all_companies();
@@ -20,6 +20,7 @@ class Upload extends CI_Controller {
 
 	function do_upload()
 	{
+        //funktionen används för att ladda upp och spara en specifik fil i angiven destination
 		$config['upload_path'] = 'C:\Users\Mmbg\Desktop\upload';
 		$config['allowed_types'] = 'csv|txt';
 
