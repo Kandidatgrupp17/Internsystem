@@ -6,21 +6,25 @@ class Secure extends CI_Controller
         parent::__construct();
         $this->__check();
     }
+	
 	/*
 	 * Ladda meny-vyn för studenter
 	*/   
     function index()
     {
-      $this->load->view('student/student_menu', $this->__user_data());
+      $input = $this->__user_data();
+      $input['AllInstitute'] =  array('D' => 'D', 'F' => 'F','KFKB' => 'KFKB','K' => 'K');
+      $this->load->view('student/student_menu',$input);
     }
+    
     /*
      * En användare vill updatera sin information -> Inte vårat jobb!
      * */
     function update()
-    {
-    	
-    
-    
+    {	
+    	$this->load->model('user_model');
+    	$this->user_model->_update_user($this->input->post());
+    	$this->index();
     }
     /*
      * Funktion för att plocka ut användardatan för den inloggade. 

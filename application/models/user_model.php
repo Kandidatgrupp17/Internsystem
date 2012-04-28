@@ -12,6 +12,30 @@ class User_model extends CI_Model
         $this->load->helper('security');
         $this->load->database();
     }
+    function login_check($input)
+    {
+    	$input['Password'] = do_hash($input['Password']);
+        $query = $this->db->get_where('users', $input);
+        if($query->num_rows() == 1)
+        {
+        	$input = $query->result_array();
+        	$arrayinput = array('UserID' => $input['0']['UserID'],
+        						'Email' => $username,
+        						'loggedin' => TRUE);
+	        $this->session->set_userdata($arrayinput);
+	        redirect('student/secure');
+        }
+        else
+        {
+        	/*
+        	 * Användaren fanns ej: tillbaka till login!
+        	 * */
+        	redirect('login');
+        }
+    
+    
+    }
+    
     
     function get_user($array)
     {
@@ -24,6 +48,7 @@ class User_model extends CI_Model
     */
     function insert_to_db($array)
     {
+    	unset($array['Passwordconfirm']);
         if(! $this->is_name_taken($array['Email']))
         {
             $this->load->helper('security');
@@ -33,18 +58,11 @@ class User_model extends CI_Model
        }
        return false;
     }
-	function insert_to_tempdb($array)
-    {
-        if(! $this->is_name_taken($array['Email']))
-        {
-            $this->load->helper('security');
-            $array['Password'] = do_hash($array['Password']);
-            $this->db->insert('temp_users', $array);
-			return true;
-       }
-       return false;
-    }
-   
+	function _update_user()
+	{
+		$this->db->update('users', $this->input->post(), array('UserID' => $this->input->post('UserID')));
+	
+	}
    /*
     Kollar om ett specifikt användarnamn finns i databasen
     returnerar 

@@ -9,9 +9,10 @@ class Registration extends CI_Controller
         $this->load->library('form_validation');
    }
 
-  function index($error)
+  function index()
   {
-      $this->load->view('registration_view',$error);
+  	  $input['Sektioner'] = array('D' => 'D', 'F' => 'F','KFKB' => 'KFKB','K' => 'K');
+      $this->load->view('registration_view',$input);
   }
   /*
     Valideringsfunktion för att se om mailen är på rätt form.
@@ -21,20 +22,15 @@ class Registration extends CI_Controller
   function is_valid_mail($email)
   {
       $array = explode('@',$email);
-      if(($array['1'] == 'student.chalmers.se' || $array['0'] == 'charm.chalmers.se') AND $array['0'] !== '')
+      if(($array['1'] == 'student.chalmers.se') AND $array['0'] !== '')
       {
             return TRUE;
       }
       return FALSE;
       
   }
-  /*
-   * Skickar mail till angiven address
-   * 
-   * */
-	function create_activation_mail($email)
+  private function __send_mail()
   {
-  		
 		$url = base_url() . "index.php/registration/";
 		$to = "ocarlsson3@gmail.com";
 		$subject = "Aktivering av användarkonto";	
@@ -49,33 +45,31 @@ class Registration extends CI_Controller
 		mail($to, $subject, $message, $headers);    
   }
   
+  
   /*
-    *  
-    *Insert - Lägger till användaren i databasens tabell users 
-    *här borde mailbekräftelsen ligga - timer som håller koll på autogen nr?
+    Insert - Lägger till användaren i databasens tabell users
+    Email = Username, kan vara förvirrande. Kolla upp det!
     */
   function insert()
   {
     $this->form_validation->set_rules('Email', 'Email', 'required');
-	$this->form_validation->set_rules('password', 'Password', 'required');
-	$this->form_validation->set_rules('passwordconfirm', 'Passwordconfirm', 'required');
+	$this->form_validation->set_rules('Password', 'Password', 'required');
+	$this->form_validation->set_rules('Passwordconfirm', 'Passwordconfirm', 'required');
     if($this->form_validation->run())
     {
-	    if($this->input->post('passwordconfirm') == $this->input->post('password') 
-	        &&  $this->is_valid_mail($this->input->post('Email')))
-	    {
-		    //Bekräftelse mail skickas
-			$this->create_activation_mail($email);
-	    	//Här anropas users-klassen!
-			$this->load->model('user_model','',TRUE);   
-		    $input = array('Email' => $this->input->post('Email'), 'Password' =>  $this->input->post('password'));
-		    $this->user_model->insert_to_tempdb($input);  
-		}
-		$this->index("Lösenorden stämmer inte eller inte korrekt mail");
+    if($this->input->post('passwordconfirm') == $this->input->post('password') 
+        &&  $this->is_valid_mail($this->input->post('Email')))
+    {
+    	//Här anropas users-klassen!    
+    	$this->load->model('user_model','',TRUE);   
+    	$input = $this->input->post();
+    	$this->user_model->insert_to_db($input);  
+    }
+        redirect('login');
    }
    else
    {
         $this->index();
-   }
-  }
+    }
+}
 }
