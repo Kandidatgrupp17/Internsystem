@@ -35,6 +35,11 @@ class User_model extends CI_Model
     
     
     }
+    function get_alluser()
+    {
+    	$this->db->select('FirstName,LastName, Email, Institute, Registered');
+    	return $this->db->get('users');
+    }
     
     
     function get_user($array)
@@ -58,6 +63,9 @@ class User_model extends CI_Model
        }
        return false;
     }
+    /*
+     * Använder postdata - Farligt?
+     * */
 	function _update_user()
 	{
 		$this->db->update('users', $this->input->post(), array('UserID' => $this->input->post('UserID')));

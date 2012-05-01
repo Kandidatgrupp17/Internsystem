@@ -1,4 +1,8 @@
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');?>
 <html>
+<html>
+<?php echo anchor('student/secure/log_out', 'Logga ut');?>
+</html>
 <br>
 <br>
 Redigera dina användaruppgifter: <br>
