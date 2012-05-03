@@ -20,3 +20,23 @@ CREATE TABLE IF NOT EXISTS  `ci_sessions` (
 	KEY `last_activity_idx` (`last_activity`)
 );
 
+/* ########Kanske behövs############
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+*/
+
+CREATE TABLE IF NOT EXISTS `companies` (
+  `Serienummer` int(11) NOT NULL,
+  `SID` int(11) NOT NULL,
+  `Tid` text NOT NULL,
+  `Draft` int(11) NOT NULL,
+  `Organisationsnamn` text NOT NULL,
+  `Organisationsnummer` text NOT NULL,
+  `Typ av organisation` text NOT NULL,
+  `Telefonnummer` int(11) NOT NULL,
+  `Kommentar` text NOT NULL,
+  `Antal barstolar` int(11) NOT NULL,
+  `Bildskärm` text NOT NULL,
+  `FID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`FID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
