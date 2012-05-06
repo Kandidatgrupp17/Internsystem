@@ -197,7 +197,9 @@ class CI_Upload {
 		$this->file_temp = $_FILES[$field]['tmp_name'];
 		$this->file_size = $_FILES[$field]['size'];
 		$this->_file_mime_type($_FILES[$field]);
-		$this->file_type = preg_replace("/^(.+?);.*$/", "\\1", $this->file_type);
+		$this->file_type = preg_replace("/^(.+?);.*$/", "\\1", $_FILES[$field]['type']); 
+		
+		//$this->file_type = preg_replace("/^(.+?);.*$/", "\\1", $this->file_type);
 		$this->file_type = strtolower(trim(stripslashes($this->file_type), '"'));
 		$this->file_name = $this->_prep_filename($_FILES[$field]['name']);
 		$this->file_ext	 = $this->get_extension($this->file_name);
@@ -1055,7 +1057,8 @@ class CI_Upload {
 		if (DIRECTORY_SEPARATOR !== '\\' && function_exists('exec'))
 		{
 			$output = array();
-			@exec('file --brief --mime-type ' . escapeshellarg($file['tmp_path']), $output, $return_code);
+			@exec('file --brief --mime-type ' . escapeshellarg($file['tmp_name']), $output, $return_code); 
+			//@exec('file --brief --mime-type ' . escapeshellarg($file['tmp_path']), $output, $return_code);
 			if ($return_code === 0 && strlen($output[0]) > 0) // A return status code != 0 would mean failed execution
 			{
 				$this->file_type = rtrim($output[0]);

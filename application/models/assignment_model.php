@@ -2,10 +2,15 @@
 
 class Assignment_model extends CI_Model
 {
+	function __construct()
+	{
+		parent::__construct();
+        $this->load->dbforge();
+		
+	}
     function get_applications()
     {
-         $query = $this->db->get('application3');
-         return $query;
+         return $this->db->get('Application');
     }
     function get_assignments_result($name)
     {
@@ -13,11 +18,12 @@ class Assignment_model extends CI_Model
          $query= $q->result_array();
          return $query;
     }
-    function insert_to_db($answers)
+    function create_db()
     {
-        $this->load->dbforge();
-        $fields = array(
-                        'username' => array(
+    	$fields = array(
+    					'UserID' => array( 'type' => 'INT'
+    									),
+                        'name' => array(
                                                  'type' => 'VARCHAR',
                                                  'constraint' => '30',
                                           ),
@@ -31,9 +37,13 @@ class Assignment_model extends CI_Model
                                           ),
                 );
         //Create a new table in database if not exist
+        $this->dbforge->add_key('UserID', TRUE);
         $this->dbforge->add_field($fields);
         $this->dbforge->create_table('assignment', TRUE);
-        $this->db->insert_batch('assignment',$answers);
-        $this->load->view('hostapp_view'); 
+    }
+    function insert_to_db($answers)
+    {
+        $this->db->insert('assignment',$answers);
+        //$this->load->view('hostapp_view'); 
     }
 }

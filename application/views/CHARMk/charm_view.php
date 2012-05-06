@@ -1,9 +1,21 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');?>
+<?php 
+if (!defined('BASEPATH')) exit('No direct script access allowed');
+/*
+ * Länkar till olika funktioner i tillhörande controller.
+ * 
+ * */
+echo anchor('CHARMk/charm_secure/Members', 'Se alla medlemmar'); echo "<br>";
+echo anchor('CHARMk/charm_secure/Application', 'Förhandsgranska formuläret'); echo "<br>"; 
+echo anchor('CHARMk/charm_secure/Assignment', 'Tilldelning av värdar'); echo "<br>";
+echo anchor('CHARMk/charm_secure/Upload','Importera företag'); echo "<br><br>";
 
-Alltid visa:
-<br>
-<?php echo anchor('student/student/showAll', 'Se alla medlemmar');?> 
-<a href="">Tidigare mässor</a> <a href="">Loggar</a>
-<br><br>
-Då ska man kunna <a href="">Tilldela värdar</a> 
-<a href="">Importera företag</a> <a href="">Se företag</a>
+/*
+ * 
+ * Här bestäms vilken view som ska visas. Den sätts igenom att 
+ * skicka med en parameter. $input['ViewField'] = 'Länk_till_view'
+ * */
+
+if($ViewField)
+{
+	$this->load->view($ViewField);
+}

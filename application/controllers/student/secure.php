@@ -13,6 +13,7 @@ class Secure extends CI_Controller
     function index()
     {
       $input = $this->__user_data();
+      $input['ViewFile'] = 'student/student_menu_edit';
       $input['AllInstitute'] =  array('D' => 'D', 'F' => 'F','KFKB' => 'KFKB','K' => 'K');
       $this->load->view('student/student_menu',$input);
     }
@@ -61,5 +62,25 @@ class Secure extends CI_Controller
         $this->session->sess_destroy();
         redirect('login');
     }
+    
+  function application_view()
+  {
+  	  $input = $this->__user_data();
+      $input['ViewFile'] = 'student/hostapp_view';
+      $input['AllInstitute'] = '';
+      $this->load->view('student/student_menu',$input);
+  }
+/*
+ * Lägger till en applikation och en assignment
+ * */
+  function add_application()
+  {
+    $this->load->model('hostapp_model','',TRUE);
+    $this->hostapp_model->insert_to_db($this->input->post());
+    $this->load->model('Assignment_model','',TRUE);
+    $asinput = array('UserID' => $this->input->post('UserID'), 'status' => 'Vantande', 'host_type' => 'Ej_tilldelad');
+    $this->Assignment_model->insert_to_db($asinput);
+   	$this->index();
+  }  
 }
 ?>

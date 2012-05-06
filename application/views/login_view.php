@@ -23,13 +23,7 @@ echo "<br>" . anchor ('registration/index', 'Registrera dig');
 echo validation_errors();
 ?>
 </div>
-<<<<<<< HEAD
 <br /><br />
-
-<p><?php echo anchor('foretag/upload', 'Snabb lank till foretagsimport'); ?></p>
-
-=======
 <a href="http://localhost/Internsystem/index.php/CHARMk/charm_secure">Admin sidan (Ska bli CHARMk)</a>
->>>>>>> origin/master
 </body>
 </html>
