@@ -3,10 +3,10 @@
 <?php
 $this->load->helper('form');
 $this->load->helper('string');
-$xml = simplexml_load_file("XML/test.xml");
+$path = "XML/test.xml";
+$xml = simplexml_load_file($path);
 
-echo "Du tittar just nu på formulär: " . $xml->getName() . "<br /><br />";
-
+echo "Nedan visas ansökningsformuläret för " . $path . "<br><br>";
 //BOF XML
 foreach($xml->children() as $xml_questions)
   {
@@ -52,19 +52,19 @@ foreach($xml->children() as $xml_questions)
           {
               array_push($options, $option);       
           }
+          echo "<b>" . $question . "</b>:<br>";
           switch ($type)
           {
               
               //Input
               case 0:
                 $input = array('name' => $inputnr);
-                echo $question . ": <br />" . form_input($input) . "<br>";
+                echo form_input($input) . "<br>";
                 $inputnr = increment_string($inputnr);
                 break;
 
               //Checkbox  
               case 1: 
-                echo $question . ": <br />";
                 $size = sizeof($options);
                 for($i=0;$i<$size;$i++)
                 {
@@ -75,18 +75,18 @@ foreach($xml->children() as $xml_questions)
                     echo $options[$i] . form_checkbox($input);
                 }
                 $checkboxnr = increment_string($checkboxnr);
+                echo "<br>";
                 break;
 
               //TextArea  
               case 2: 
                 $input = array('name' => $textnr);
-                echo "<br />" . $question . ": <br />". form_textarea($input) . "<br>";
+                echo form_textarea($input) . "<br>";
                 $textnr = increment_string($textnr);
                 break;
 
               //Radio  
               case 3:
-                echo "<br />" . $question . ": <br />";
                 $size = sizeof($options);
                 for($i=0;$i<$size;$i++)
                 {
@@ -96,13 +96,13 @@ foreach($xml->children() as $xml_questions)
                                             );
                     echo $options[$i] . form_radio($input);
                 }
+      			echo "<br>";
                 $radionr = increment_string($radionr);
                 break;
 
               //DropDownList  
               case 4:
                 $size = sizeof($options);
-                echo "<br />" . $question . ": <br />";
                 echo "<select name='$dropdownnr'>";
                 for($i=0;$i<$size;$i++)
                 {
@@ -116,7 +116,6 @@ foreach($xml->children() as $xml_questions)
               //SelectionList  
               case 5: 
                 $size = sizeof($options);
-                echo "<br />" . $question . ": <br />";
                 echo "<select name='$selectionnr' multiple='multiple' size='$size'>";
                 for($i=0;$i<$size;$i++)
                 {
@@ -133,7 +132,8 @@ foreach($xml->children() as $xml_questions)
            }
        }
   }
-echo "<br />" . form_submit('','Godkänn formuläret') . "</form>";
+echo "<br />" . "<input type='submit' value='Godkänn' " . $disabled .  " ></input>"  . "</form>";
+echo "Genom att godkännad formuläret så öppnas <b>värdansökan</b>";
 ?> 
 </body>
 </html>

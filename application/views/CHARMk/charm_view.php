@@ -4,6 +4,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  * Länkar till olika funktioner i tillhörande controller.
  * 
  * */
+echo anchor('', "logga ut"); echo "<br>";
 echo anchor('CHARMk/charm_secure/Members', 'Se alla medlemmar'); echo "<br>";
 echo anchor('CHARMk/charm_secure/Application', 'Förhandsgranska formuläret'); echo "<br>"; 
 echo anchor('CHARMk/charm_secure/Assignment', 'Tilldelning av värdar'); echo "<br>";

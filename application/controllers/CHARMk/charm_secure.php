@@ -33,6 +33,19 @@ class Charm_secure extends CI_Controller
 	}
 	function Application()
 	{
+		/*
+		 * Kolla om värdansökan är öppen!
+		 * */
+		$this->load->model('hostapp_model');
+		if($this->hostapp_model->application_open())
+		{
+			$input['disabled'] = 'disabled';
+		}else
+		{
+			$input['disabled'] = null;
+			
+		}
+		
 		$input['ViewField'] = 'CHARMk/hostapp_CHARMkview';
 		$this->load->view('CHARMk/charm_view',$input);
 		
@@ -74,7 +87,9 @@ class Charm_secure extends CI_Controller
         );
         // set the table headings
         $this->table->set_heading($tableheadings);
-                                    
+
+        
+        //Hårdkodade värdtyper                    
         $options = array('Ej_tilldelad' => 'Ej_tilldelad',
                                     'Foretagsvard' => 'Foretagsvard',
                                     'Omradesvard' => 'Omradesvard');
@@ -84,29 +99,36 @@ class Charm_secure extends CI_Controller
                                   'Ej_antagen' => 'Ej_antagen',
                                   'Svartlistad' => 'Svartlistad');
 
-        // create the table rows
-        $checkbox_nr = increment_string('checkbox');
-        $status_nr = increment_string('status');
-        $host_nr = increment_string('host');
-        $name_list = array();
+	        
         $this->load->model('user_model');
+        /*
+         * För varje applikation.
+         * */
         foreach($applicationdata->result() as $row)
         {
+        	//Användarinformation
         	$USER = $this->user_model->get_user(array('UserID' => $row->UserID))->result();
         	$USER = (Array) $USER['0'];
             $name =  $USER['FirstName'] . " " . $USER['LastName'];
             $data['UserID'] = $USER['UserID'];
-            array_push($name_list,$name);
-            $getapp = array('UserID' => $USER['UserID']);
-            $assignment_result = $this->assignment_model->get_assignments_result($getapp);
+            $UserIDArray = array('UserID' => $USER['UserID']);
+            $assignment_result = $this->assignment_model->get_assignments_result($UserIDArray);
+            
+            //array_push($name_list,$name);
 
             /*
              * Input till tabell
              * */
-            $input = array('name' => $checkbox_nr,
-                                    'value' => 'Checked',
+            $input = array('name' => 'check[]',
+                                    'value' => $USER['UserID'],
                                     'checked' => FALSE,
                                     );
+            $status_nr = 'status_' . $USER['UserID'];
+            $host_nr = 'host_' . $USER['UserID'];
+            /*
+             * 
+             * Genererea tabell med användare och rätt val ikryssat
+             * */
             if(sizeof($assignment_result) == 1)
             {
                 $selected_status = $assignment_result[0]['status'];
@@ -114,7 +136,8 @@ class Charm_secure extends CI_Controller
                 $this->table->add_row(form_checkbox($input),
                                                   $name,
                                                   form_dropdown($status_nr, $status, $selected_status),
-                                                  form_dropdown($host_nr, $options, $selected_hosttype)
+                                                  form_dropdown($host_nr, $options, $selected_hosttype),
+                                                  form_hidden('UserID', $USER['UserID'])
                                                   );
             }
             else
@@ -122,22 +145,18 @@ class Charm_secure extends CI_Controller
                 $this->table->add_row(form_checkbox($input),
                                                   $name,
                                                   form_dropdown($status_nr, $status),
-                                                  form_dropdown($host_nr, $options)
+                                                  form_dropdown($host_nr, $options),
+                                                  form_hidden('UserID', $USER['UserID'])
                                                   );
             }
-            $checkbox_nr =  increment_string($checkbox_nr);
-            $status_nr = increment_string($status_nr);
-            $host_nr = increment_string($host_nr);
+            
         }
 
         // generate the table and put it into a variable
         $data['table'] = $this->table->generate();
-        $data['names'] = $name_list;
         $data['ViewField'] = 'CHARMk/assignment_view';
         $this->load->view('CHARMk/charm_view', $data);
-		
-		
-		
+				
 	}
 	
 	/*
@@ -163,7 +182,7 @@ class Charm_secure extends CI_Controller
 		    //$input = array_combine($question_list,$answers);           
 		    $this->load->model('hostapp_model','',TRUE);
 		    $this->hostapp_model->create_db($question_list, $categories, $types);
-		    
+		    $input['disabled'] = 'disabled';
 			$input['ViewField'] = 'CHARMk/hostapp_CHARMkview';
 		    $this->load->view('CHARMk/charm_view', $input); 
 	}

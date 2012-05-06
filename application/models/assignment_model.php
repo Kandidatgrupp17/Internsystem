@@ -41,9 +41,13 @@ class Assignment_model extends CI_Model
         $this->dbforge->add_field($fields);
         $this->dbforge->create_table('assignment', TRUE);
     }
-    function insert_to_db($answers)
+    function update_assignment($input)
     {
-        $this->db->insert('assignment',$answers);
-        //$this->load->view('hostapp_view'); 
+    	$this->db->where('UserID', $input['UserID']);
+        $this->db->update('assignment',$input);
+    }
+    function insert_to_db($input)
+    {
+    	$this->db->insert('assignment', $input);
     }
 }

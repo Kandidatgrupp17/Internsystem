@@ -25,4 +25,18 @@ class Hostapp_model extends CI_Model
     {
 	   $this->db->insert('Application',$input);
     }
+
+    function application_open()
+    {
+    	$tables = $this->db->query("show tables")->result();
+    	foreach($tables as $tb)
+    	{
+    		$tb = (Array) $tb;
+    		if($tb['Tables_in_CHARM_System'] == "Application")
+    		{
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 }

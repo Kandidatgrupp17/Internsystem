@@ -9,11 +9,14 @@ class Secure extends CI_Controller
 	
 	/*
 	 * Ladda meny-vyn för studenter
+	 * Skickar en bool som bestämmer om Ansökan är öppen eller inte
 	*/   
     function index()
     {
       $input = $this->__user_data();
       $input['ViewFile'] = 'student/student_menu_edit';
+      $this->load->model('hostapp_model');
+      $input['ansok'] = $this->hostapp_model->application_open();
       $input['AllInstitute'] =  array('D' => 'D', 'F' => 'F','KFKB' => 'KFKB','K' => 'K');
       $this->load->view('student/student_menu',$input);
     }
