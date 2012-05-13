@@ -30,7 +30,9 @@ class Company_model extends CI_Model
     }
     function get_all_companies()
     {
-        return $this->db->get('companies');
+    	$this->db->select('SID,Organisationsnamn');
+    	$this->db->from('companies');
+        return $this->db->get();
     
     }
 

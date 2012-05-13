@@ -27,34 +27,41 @@
     </category>
   </categories>
   <questions>
-  <question>
+    <question>
+      <name>Name</name>
+      <category>0</category>
+    </question>
+    <question>
+      <name>Email</name>
+      <category>0</category>
+    </question>
+    <question>
       <name>Kon</name>
       <category>3</category>
       <option>Man</option>
       <option>Kvinna</option>
     </question>
     <question>
-      <name>Forsta val</name>
-      <category>1</category>
-      <option>Foretagsvard</option>
-      <option>Omradesvard</option>
-      <option>Reception</option>
+      <name>Sektion</name>
+      <category>4</category>
+      <option>D</option>
+      <option>IT</option>
+      <option>E</option>
     </question>
-
     <question>
-      <name>Andra val</name>
+      <name>Vardtyp</name>
       <category>1</category>
       <option>Foretagsvard</option>
       <option>Omradesvard</option>
-      <option>Reception</option>
+      <option>Ovrigt</option>
     </question>
-
     <question>
-      <name>Tredje val</name>
-      <category>1</category>
-      <option>Foretagsvard</option>
-      <option>Omradesvard</option>
-      <option>Reception</option>
+      <name>Onskat foretag</name>
+      <category>5</category>
+      <option>Foretag1</option>
+      <option>Foretag2</option>
+      <option>Foretag3</option>
+      <option>Foretag4</option>
     </question>
     <question>
       <name>Beratta om dig sjalv</name>

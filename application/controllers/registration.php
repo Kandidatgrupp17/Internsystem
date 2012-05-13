@@ -12,7 +12,8 @@ class Registration extends CI_Controller
   function index()
   {
   	  $input['Sektioner'] = array('D' => 'D', 'F' => 'F','KFKB' => 'KFKB','K' => 'K');
-      $this->load->view('registration_view',$input);
+  	  $input['ViewField'] = "registration_view";
+      $this->load->view('startpage',$input);
   }
   /*
     Valideringsfunktion för att se om mailen är på rätt form.
@@ -22,7 +23,7 @@ class Registration extends CI_Controller
   function is_valid_mail($email)
   {
       $array = explode('@',$email);
-      if(($array['1'] == 'student.chalmers.se') AND $array['0'] !== '')
+      if((($array['1'] == 'student.chalmers.se') OR $array['1'] == 'charm.chalmers.se') AND $array['0'] !== '')
       {
             return TRUE;
       }
@@ -63,6 +64,7 @@ class Registration extends CI_Controller
     	//Här anropas users-klassen!    
     	$this->load->model('user_model','',TRUE);   
     	$input = $this->input->post();
+    	$input['AccessID'] = '2';
     	$this->user_model->insert_to_db($input);  
     }
         redirect('login');

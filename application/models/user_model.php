@@ -12,6 +12,18 @@ class User_model extends CI_Model
         $this->load->helper('security');
         $this->load->database();
     }
+    function access_level($input)
+    {
+    	$input['Password'] = do_hash($input['Password']);
+    	$this->db->select('AccessID');
+    	/*
+    	 * Borde kolla userID och inte mail
+    	 * */
+    	$this->db->where('Email', $input['Email']);
+    	$this->db->from('users');
+    	return $this->db->get()->result();
+    	    	
+    }
     function login_check($input)
     {
     	$input['Password'] = do_hash($input['Password']);
@@ -23,14 +35,14 @@ class User_model extends CI_Model
         						'Email' => $username,
         						'loggedin' => TRUE);
 	        $this->session->set_userdata($arrayinput);
-	        redirect('student/secure');
+			return TRUE;
         }
         else
         {
         	/*
         	 * Användaren fanns ej: tillbaka till login!
         	 * */
-        	redirect('login');
+			return FALSE;
         }
     
     

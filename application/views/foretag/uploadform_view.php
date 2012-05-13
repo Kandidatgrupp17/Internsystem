@@ -1,9 +1,5 @@
-<html>
-<head>
-<title>Foretagsimport</title>
-</head>
-<body>
-
+<div id="viewpage">
+<h2>FÖRETAG</h2>
 <?php echo "Importera foretagen:" ;?>
 <br /><br />
 <?php
@@ -27,5 +23,4 @@ if($companies)
 	echo $this->table->generate($companies); 
 }
 ?>
-</body>
-</html>
+</div>

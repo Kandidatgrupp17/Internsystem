@@ -9,7 +9,13 @@ class Login extends CI_Controller
     }
     function index()
     {
-        $this->load->view('login_view');     
+    	$input['ViewField'] = "login_view";
+        $this->load->view('startpage',$input);     
+    }
+    function reg()
+    {
+    	$input['ViewField'] = "registration_view";
+        $this->load->view('startpage',$input);     
     }
     /*
     Kontrollerar att formulären är ifyllda samt anropar
@@ -33,7 +39,25 @@ class Login extends CI_Controller
 	         * */	
 	        $this->load->model('user_model', '',TRUE);
 	        $array = array('Email' => $Username, 'Password' => $Password);
-	        $this->user_model->login_check($array);
+	        if($this->user_model->login_check($array))
+	        {
+	        	//redirect('student/secure');
+	        	$access = (Array) $this->user_model->access_level($array);
+	        	$access = (Array)$access['0'];
+	        if($access['AccessID'] == '2')
+	        	{
+	        		//var_dump($access['AccessID']);
+	        		redirect('student/secure');
+	        	}else 
+	        	{
+	        		redirect('CHARMk/charm_secure');
+	        	}
+	        	
+	        	
+	        }else
+	       {
+	        	redirect('login');
+	        }
         }
         else
         {

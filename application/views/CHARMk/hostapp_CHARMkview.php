@@ -1,12 +1,12 @@
 <html>
 <body>
+<div id="viewpage">
+<h2>ansökningsformuläret</h2>
 <?php
 $this->load->helper('form');
 $this->load->helper('string');
 $path = "XML/test.xml";
 $xml = simplexml_load_file($path);
-
-echo "Nedan visas ansökningsformuläret för " . $path . "<br><br>";
 //BOF XML
 foreach($xml->children() as $xml_questions)
   {
@@ -133,7 +133,7 @@ foreach($xml->children() as $xml_questions)
        }
   }
 echo "<br />" . "<input type='submit' value='Godkänn' " . $disabled .  " ></input>"  . "</form>";
-echo "Genom att godkännad formuläret så öppnas <b>värdansökan</b>";
 ?> 
+</div>
 </body>
 </html>

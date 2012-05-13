@@ -14,10 +14,10 @@ class Secure extends CI_Controller
     function index()
     {
       $input = $this->__user_data();
-      $input['ViewFile'] = 'student/student_menu_edit';
+      $input['ViewFile'] = '';
       $this->load->model('hostapp_model');
       $input['ansok'] = $this->hostapp_model->application_open();
-      $input['AllInstitute'] =  array('D' => 'D', 'F' => 'F','KFKB' => 'KFKB','K' => 'K');
+      $input['AllInstitute'] = array('D' => 'D', 'F' => 'F','KFKB' => 'KFKB','K' => 'K');
       $this->load->view('student/student_menu',$input);
     }
     
@@ -65,11 +65,24 @@ class Secure extends CI_Controller
         $this->session->sess_destroy();
         redirect('login');
     }
+    function edit_info()
+    {
+      $input = $this->__user_data();
+    	
+      $this->load->model('hostapp_model');
+      $input['ansok'] = $this->hostapp_model->application_open();    
+      $input['ViewFile'] = 'student/student_menu_edit';
+      $input['AllInstitute'] = array('D' => 'D', 'F' => 'F','KFKB' => 'KFKB','K' => 'K');
+      ;
+      $this->load->view('student/student_menu',$input);
+    }
     
   function application_view()
   {
   	  $input = $this->__user_data();
-      $input['ViewFile'] = 'student/hostapp_view';
+  	  
+	  $this->load->model('hostapp_model');
+      $input['ansok'] = $this->hostapp_model->application_open();      $input['ViewFile'] = 'student/hostapp_view';
       $input['AllInstitute'] = '';
       $this->load->view('student/student_menu',$input);
   }

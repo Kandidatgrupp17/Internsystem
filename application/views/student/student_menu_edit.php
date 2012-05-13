@@ -1,8 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');?>
-<html>
-<br>
-<br>
-Redigera dina användaruppgifter: <br>
+<div id="viewpage">
+
+<h2>användaruppgifter</h2>
 <?php echo form_open('student/secure/update');?>
 <input type="hidden" name="UserID" value="<?php echo $UserID ?>"></input>
 <table>
@@ -28,4 +27,4 @@ Redigera dina användaruppgifter: <br>
 </table>
 </table>
 <?php echo $Error?>
-</html>
+</div>
