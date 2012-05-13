@@ -58,10 +58,7 @@ class Charm_secure extends CI_Controller
         $applicationdata = $this->assignment_model->get_applications();
         
         // create the table template
-        $tmpl = array (
-                    'table_open'          => '<table border="0" cellpadding="4" cellspacing="0" width="500px">',
-			
-              );
+        $tmpl = array ('table_open'          => '<table border="0" cellpadding="4" cellspacing="0" width="500px">');
               
         // set the template
         $this->table->set_template($tmpl); 
@@ -75,8 +72,9 @@ class Charm_secure extends CI_Controller
         
         //Hårdkodade värdtyper                    
         $options = array('Ej tilldelad' => 'Ej tilldelad',
-                                    'Foretagsvard' => 'Foretagsvard',
-                                    'Omradesvard' => 'Omradesvard');
+                                    'Foretagsvard' => 'Företagsvärd',
+                                    'Omradesvard' => 'Områdesvärd',
+        							'Ovrigt' => 'Övrigt');
                                     
         $status = array('Vantande' => 'Vantande',
                                   'Antagen' => 'Antagen',
@@ -88,6 +86,7 @@ class Charm_secure extends CI_Controller
         /*
          * För varje applikation.
          * */
+        $i = 0;
         foreach($applicationdata->result() as $row)
         {
         	//Användarinformation
@@ -98,8 +97,6 @@ class Charm_secure extends CI_Controller
             $UserIDArray = array('UserID' => $USER['UserID']);
             $assignment_result = $this->assignment_model->get_assignments_result($UserIDArray);
             
-            //array_push($name_list,$name);
-
             /*
              * Input till tabell
              * */
@@ -135,7 +132,7 @@ class Charm_secure extends CI_Controller
             }
             
         }
-
+        
         // generate the table and put it into a variable
         $data['table'] = $this->table->generate();
         $data['ViewField'] = 'CHARMk/assignment_view';

@@ -19,7 +19,6 @@ echo form_open('login/check');
 <?php 
 echo form_submit('Logga in', 'Logga in');
 $this->load->helper('url');
-echo "<br><br>" . $error;
 echo "<br><br>";
 echo "<h17>Sidan använder kakor. Genom att logga in samtycker du hantering av kakor på webbplatsen.</h17>";
 echo validation_errors();
