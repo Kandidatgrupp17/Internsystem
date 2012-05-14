@@ -1,3 +1,4 @@
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');?>
 <div id="viewpage">
 <h2>FÖRETAG</h2>
 <?php echo "Importera foretagen:" ;?>
@@ -7,7 +8,7 @@
  echo form_open_multipart('foretag/companies/do_upload');
 ?>
 
-<input type="file" name="userfile" size="20" />
+<input type="file" name="userfile" value="välj fil" size="20" />
 
 <br /><br />
 

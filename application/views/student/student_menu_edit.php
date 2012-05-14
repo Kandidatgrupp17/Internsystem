@@ -26,5 +26,5 @@
 </tr>
 </table>
 </table>
-<?php echo $Error?>
+<?php echo validation_errors();?>
 </div>

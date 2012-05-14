@@ -5,6 +5,8 @@ class Secure extends CI_Controller
     {
         parent::__construct();
         $this->__check();
+        $this->load->library('form_validation');
+        
     }
 	
 	/*
@@ -26,10 +28,15 @@ class Secure extends CI_Controller
      * */
     function update()
     {	
-    	$this->load->model('user_model');
-    	$this->user_model->_update_user($this->input->post());
-    	$this->index();
-    }
+	    $this->form_validation->set_rules('FirstName', 'firstname', 'required');
+		$this->form_validation->set_rules('LastName', 'lastname', 'required');
+		if($this->form_validation->run())
+		{
+	    	$this->load->model('user_model');
+	    	$this->user_model->_update_user($this->input->post());
+		}
+	    $this->edit_info();
+	}
     /*
      * Funktion för att plocka ut användardatan för den inloggade. 
      * Grymt fult löst!!!!! ÄNDRA DET HÄR
@@ -73,7 +80,6 @@ class Secure extends CI_Controller
       $input['ansok'] = $this->hostapp_model->application_open();    
       $input['ViewFile'] = 'student/student_menu_edit';
       $input['AllInstitute'] = array('D' => 'D', 'F' => 'F','KFKB' => 'KFKB','K' => 'K');
-      ;
       $this->load->view('student/student_menu',$input);
     }
     
@@ -91,12 +97,18 @@ class Secure extends CI_Controller
  * */
   function add_application()
   {
-    $this->load->model('hostapp_model','',TRUE);
-    $this->hostapp_model->insert_to_db($this->input->post());
-    $this->load->model('Assignment_model','',TRUE);
-    $asinput = array('UserID' => $this->input->post('UserID'), 'status' => 'Vantande', 'host_type' => 'Ej_tilldelad');
-    $this->Assignment_model->insert_to_db($asinput);
-   	$this->index();
-  }  
+    $this->form_validation->set_rules('Namn', 'Namn', 'required');
+	$this->form_validation->set_rules('Email', 'Email', 'required');
+	if($this->form_validation->run())
+	{
+	    $this->load->model('hostapp_model','',TRUE);
+	    $this->hostapp_model->insert_to_db($this->input->post());
+	    $this->load->model('Assignment_model','',TRUE);
+	    $asinput = array('UserID' => $this->input->post('UserID'), 'status' => 'Vantande', 'host_type' => 'Ej_tilldelad');
+	    $this->Assignment_model->insert_to_db($asinput);
+	   	$this->index();
+	}
+	$this->	application_view(); 
+   }  
 }
 ?>

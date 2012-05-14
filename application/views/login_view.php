@@ -1,7 +1,6 @@
 <h2>LOGGA IN</h2>
 <div id="viewpage">
 <?php 
-
 $this->load->helper('html');
  $this->load->helper('url');
 echo link_tag('css/style.css'); 

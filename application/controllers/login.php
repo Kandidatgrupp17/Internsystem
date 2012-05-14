@@ -56,8 +56,9 @@ class Login extends CI_Controller
 	        	
 	        }else
 	       {
-	        	redirect('login');
-	        }
+	       		$this->index();
+	        	//redirect('login');
+	        }	        
         }
         else
         {
@@ -65,7 +66,9 @@ class Login extends CI_Controller
         	 * Formuläret är ifyllt fel. Visar vyn igen för 
         	 * att få med felmeddelande via validator
         	 * */
-    	    $this->load->view('login_view');
+    	    $this->index();
+        	
+        	//$this->load->view('login_view');
         }
     }
 }

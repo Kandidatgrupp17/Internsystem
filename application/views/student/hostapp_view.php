@@ -1,8 +1,11 @@
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');?>
 <html>
 <body>
 <div id="viewpage">
 <h2>värdansökan</h2>
 <?php
+echo validation_errors();
+
 $this->load->helper('form');
 $this->load->helper('string');
 $path = "XML/test.xml";

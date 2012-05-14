@@ -27,7 +27,7 @@ echo link_tag('css/style.css'); ?>
 <div style="overflow: hidden;	height: 56px; background: url(<?=base_url()?>/images/img01.gif) repeat-x left top;">
 	<div id="menu">
 		<ul>
-		<li><?= anchor('', "logga ut")?></li>
+		<li><?= anchor('CHARMk/charm_secure/log_out', "logga ut")?></li>
 		
 		</ul>
 	</div>

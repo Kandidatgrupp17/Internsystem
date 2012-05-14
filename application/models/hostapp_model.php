@@ -18,12 +18,12 @@ class Hostapp_model extends CI_Model
 	    $this->dbforge->add_field('id');
 	    $this->dbforge->add_field(array('UserID' => array('type' => 'INT')));
 	    $this->dbforge->add_field($newfield);
-		$this->dbforge->create_table('Application', TRUE);
+		$this->dbforge->create_table('application', TRUE);
 	    
 	}
     function insert_to_db($input)
     {
-	   $this->db->insert('Application',$input);
+	   $this->db->insert('application',$input);
     }
 
     function application_open()
@@ -32,7 +32,7 @@ class Hostapp_model extends CI_Model
     	foreach($tables as $tb)
     	{
     		$tb = (Array) $tb;
-    		if($tb['Tables_in_CHARM_System'] == "Application")
+    		if($tb['Tables_in_CHARM_System'] == "application")
     		{
     			return true;
     		}

@@ -10,7 +10,7 @@ class Assignment_model extends CI_Model
 	}
     function get_applications()
     {
-         return $this->db->get('Application');
+         return $this->db->get('application');
     }
     function get_assignments_result($name)
     {

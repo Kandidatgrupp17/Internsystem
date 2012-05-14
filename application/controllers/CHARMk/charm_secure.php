@@ -4,11 +4,37 @@ class Charm_secure extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+		$this->__check();
+		
 		$this->load->library('table');
         $this->load->helper('form');
         $this->load->helper('string');
         
 	}
+	/*
+	 * Funktionen för att kontrollera att användaren är 
+	 * inloggad och ok att titta på systemet.
+	*/
+    function __check()
+    {  
+        //Osäkert!
+        if($this->session->userdata('loggedin') == '' OR $this->session->userdata('loggedin') == FALSE)
+        {
+            $this->log_out();
+        }
+    }
+    
+    /*
+     * Förstör sessionen och skickar tillbaka användaren till
+     * första sidan. Login.
+     * 
+    */
+    function log_out()
+    {
+        $this->session->sess_destroy();
+        redirect('login');
+    }
+    
 	function index()
 	{
 		$input['ViewField'] = '';
@@ -64,7 +90,7 @@ class Charm_secure extends CI_Controller
         $this->table->set_template($tmpl); 
         // create the table headings
         $tableheadings = array (
-            '&nbsp;','Name','Status','Host',
+            '&nbsp;','Namn','Aktuell status','Värdroll',
         );
         // set the table headings
         $this->table->set_heading($tableheadings);
