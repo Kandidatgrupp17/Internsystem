@@ -96,86 +96,88 @@ class Charm_secure extends CI_Controller
 		// get the data from the database
         $this->load->model('assignment_model','',TRUE);
         $this->assignment_model->create_db();
-        $applicationdata = $this->assignment_model->get_applications();
-        
-        // create the table template
-        $tmpl = array ('table_open'          => '<table border="0" cellpadding="4" cellspacing="0" width="500px">');
-              
-        // set the template
-        $this->table->set_template($tmpl); 
-        // create the table headings
-        $tableheadings = array (
-            '&nbsp;','Namn','Aktuell status','Värdroll',
-        );
-        // set the table headings
-        $this->table->set_heading($tableheadings);
-
-        
-        //Hårdkodade värdtyper                    
-        $options = array('Ej tilldelad' => 'Ej tilldelad',
-                                    'Foretagsvard' => 'Företagsvärd',
-                                    'Omradesvard' => 'Områdesvärd',
-        							'Ovrigt' => 'Övrigt');
-                                    
-        $status = array('Vantande' => 'Vantande',
-                                  'Antagen' => 'Antagen',
-                                  'Ej antagen' => 'Ej antagen',
-                                  'Svartlistad' => 'Svartlistad');
-
+        $this->load->model('hostapp_model','',TRUE);
+        $applicationdata = $this->hostapp_model->get_applications();
+        if($this->hostapp_model->application_open())
+	        {
+	        // create the table template
+	        $tmpl = array ('table_open'          => '<table border="0" cellpadding="4" cellspacing="0" width="500px">');
+	              
+	        // set the template
+	        $this->table->set_template($tmpl); 
+	        // create the table headings
+	        $tableheadings = array (
+	            '&nbsp;','Namn','Aktuell status','Värdroll',
+	        );
+	        // set the table headings
+	        $this->table->set_heading($tableheadings);
+	
 	        
-        $this->load->model('user_model');
-        /*
-         * För varje applikation.
-         * */
-        $i = 0;
-        foreach($applicationdata->result() as $row)
-        {
-        	//Användarinformation
-        	$USER = $this->user_model->get_user(array('UserID' => $row->UserID))->result();
-        	$USER = (Array) $USER['0'];
-            $name =  $USER['FirstName'] . " " . $USER['LastName'];
-            $data['UserID'] = $USER['UserID'];
-            $UserIDArray = array('UserID' => $USER['UserID']);
-            $assignment_result = $this->assignment_model->get_assignments_result($UserIDArray);
-            
-            /*
-             * Input till tabell
-             * */
-            $input = array('name' => 'check[]',
-                                    'value' => $USER['UserID'],
-                                    'checked' => FALSE,
-                                    );
-            $status_nr = 'status_' . $USER['UserID'];
-            $host_nr = 'host_' . $USER['UserID'];
-            /*
-             * 
-             * Genererea tabell med användare och rätt val ikryssat
-             * */
-            if(sizeof($assignment_result) == 1)
-            {
-                $selected_status = $assignment_result[0]['status'];
-                $selected_hosttype = $assignment_result[0]['host_type'];
-                $this->table->add_row(form_checkbox($input),
-                                                  $name,
-                                                  form_dropdown($status_nr, $status, $selected_status),
-                                                  form_dropdown($host_nr, $options, $selected_hosttype),
-                                                  form_hidden('UserID', $USER['UserID'])
-                                                  );
-            }
-            else
-            {
-                $this->table->add_row(form_checkbox($input),
-                                                  $name,
-                                                  form_dropdown($status_nr, $status),
-                                                  form_dropdown($host_nr, $options),
-                                                  form_hidden('UserID', $USER['UserID'])
-                                                  );
-            }
-            
-        }
-        
-        // generate the table and put it into a variable
-        $data['table'] = $this->table->generate();
+	        //Hårdkodade värdtyper                    
+	        $options = array('Ej tilldelad' => 'Ej tilldelad',
+	                                    'Foretagsvard' => 'Företagsvärd',
+	                                    'Omradesvard' => 'Områdesvärd',
+	        							'Ovrigt' => 'Övrigt');
+	                                    
+	        $status = array('Vantande' => 'Vantande',
+	                                  'Antagen' => 'Antagen',
+	                                  'Ej antagen' => 'Ej antagen',
+	                                  'Svartlistad' => 'Svartlistad');
+	
+		        
+	        $this->load->model('user_model');
+	        /*
+	         * För varje applikation.
+	         * */
+	        $i = 0;
+	        foreach($applicationdata->result() as $row)
+	        {
+	        	//Användarinformation
+	        	$USER = $this->user_model->get_user(array('UserID' => $row->UserID))->result();
+	        	$USER = (Array) $USER['0'];
+	            $name =  $USER['FirstName'] . " " . $USER['LastName'];
+	            $data['UserID'] = $USER['UserID'];
+	            $UserIDArray = array('UserID' => $USER['UserID']);
+	            $assignment_result = $this->assignment_model->get_assignments_result($UserIDArray);
+	            
+	            /*
+	             * Input till tabell
+	             * */
+	            $input = array('name' => 'check[]',
+	                                    'value' => $USER['UserID'],
+	                                    'checked' => FALSE,
+	                                    );
+	            $status_nr = 'status_' . $USER['UserID'];
+	            $host_nr = 'host_' . $USER['UserID'];
+	            /*
+	             * 
+	             * Genererea tabell med användare och rätt val ikryssat
+	             * */
+	            if(sizeof($assignment_result) == 1)
+	            {
+	                $selected_status = $assignment_result[0]['status'];
+	                $selected_hosttype = $assignment_result[0]['host_type'];
+	                $this->table->add_row(form_checkbox($input),
+	                                                  $name,
+	                                                  form_dropdown($status_nr, $status, $selected_status),
+	                                                  form_dropdown($host_nr, $options, $selected_hosttype),
+	                                                  form_hidden('UserID', $USER['UserID'])
+	                                                  );
+	            }
+	            else
+	            {
+	                $this->table->add_row(form_checkbox($input),
+	                                                  $name,
+	                                                  form_dropdown($status_nr, $status),
+	                                                  form_dropdown($host_nr, $options),
+	                                                  form_hidden('UserID', $USER['UserID'])
+	                                                  );
+	            }
+	            
+	        }
+	    // generate the table and put it into a variable
+        $data['table'] = $this->table->generate(); 
+	    }        
         $data['ViewField'] = 'CHARMk/assignment_view';
         $this->load->view('CHARMk/charm_view', $data);
 				

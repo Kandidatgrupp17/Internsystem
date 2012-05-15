@@ -1,7 +1,18 @@
 <?php
-
+/*
+ * BERÖR ENDAST 
+ * 					application
+ * 
+ * 
+ * 
+ * */
 class Hostapp_model extends CI_Model
 {
+	
+    function get_applications()
+    {
+         return $this->db->get('application');
+    }
 	
 	function create_db($questions, $types, $type_list)
 	{

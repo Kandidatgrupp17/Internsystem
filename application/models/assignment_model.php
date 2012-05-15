@@ -1,5 +1,8 @@
 <?php
-
+/*
+ * Berör endast
+ * 					assignment
+ * */
 class Assignment_model extends CI_Model
 {
 	function __construct()
@@ -8,10 +11,6 @@ class Assignment_model extends CI_Model
         $this->load->dbforge();
 		
 	}
-    function get_applications()
-    {
-         return $this->db->get('application');
-    }
     function get_assignments_result($name)
     {
          $q = $this->db->get_where('assignment', $name);
