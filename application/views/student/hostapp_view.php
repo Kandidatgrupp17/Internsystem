@@ -4,8 +4,6 @@
 <div id="viewpage">
 <h2>värdansökan</h2>
 <?php
-echo validation_errors();
-
 $this->load->helper('form');
 $this->load->helper('string');
 $path = "XML/test.xml";
@@ -13,24 +11,7 @@ $xml = simplexml_load_file($path);
 //BOF XML
 foreach($xml->children() as $xml_questions)
   {
-      /*$question_list = array();
-      $category_list = array();
-      $type_list = array();
-      //Get all categories (their database types)
-      foreach($xml_questions->category as $xml_category)
-      {
-          $dbtype = $xml_category->dbtype;
-          array_push($category_list, array('type' => $dbtype));
-      }
-      //Get all questions and their types
-      foreach($xml_questions->question as $xml_question)
-      {
-          $question = $xml_question->name;
-          $type = $xml_question->category;
-          array_push($question_list, $question);
-          array_push($type_list, $type);
-      }
-      
+	  /*
        * Open form
        * 
        * */
@@ -128,6 +109,8 @@ foreach($xml->children() as $xml_questions)
        }
   }
 echo "<br />" . "<input type='submit'></input>"  . "</form>";
+echo validation_errors();
+
 ?> 
 </div>
 </body>

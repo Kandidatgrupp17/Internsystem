@@ -25,7 +25,21 @@ class Hostapp_model extends CI_Model
     {
 	   $this->db->insert('application',$input);
     }
-
+	function already_applied($UserID)
+	{
+		$input = array('UserID' => $UserID);
+		if($this->db->get_where('application', $input)->num_rows() == 1)
+		{
+			return TRUE;
+		}
+		return FALSE;
+	}
+	function get_application($UserID)
+	{
+		$this->db->select('Name, Email, Sektion, Vardtyp, Onskat_foretag, Beratta_om_dig_sjalv');
+		$this->db->where(array('UserID' => $UserID));
+		return $this->db->get('application');
+	}
     function application_open()
     {
     	$tables = $this->db->query("show tables")->result();

@@ -40,6 +40,9 @@ class Charm_secure extends CI_Controller
 		$input['ViewField'] = '';
 		$this->load->view('CHARMk/charm_view',$input);
 	}
+	/*
+	 * Om användaren klickar på företags import
+	 * */
 	function Upload()
 	{
         $this->load->model('company_model');
@@ -48,6 +51,10 @@ class Charm_secure extends CI_Controller
         $input['ViewField'] = 'foretag/uploadform_view';
 		$this->load->view('CHARMk/charm_view', $input);		
 	}
+	/*
+	 * Visar alla medlemmar
+	 * 
+	 * */
 	function Members()
 	{
 		$this->load->library('table');
@@ -57,6 +64,10 @@ class Charm_secure extends CI_Controller
 		$this->load->view('CHARMk/charm_view',$input);
 		
 	}
+	/*
+	 * Visar ansökningsformuläret. Knappen godkänd går att trycka på ifall det inte är öppet.
+	 * 
+	 * */
 	function Application()
 	{
 		/*
@@ -76,6 +87,10 @@ class Charm_secure extends CI_Controller
 		$this->load->view('CHARMk/charm_view',$input);
 		
 	}
+	/*
+	 * Visar värdtilldelningen
+	 * 
+	 * */
 	function Assignment()
 	{
 		// get the data from the database

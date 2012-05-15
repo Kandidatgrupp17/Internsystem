@@ -6,6 +6,8 @@ class Secure extends CI_Controller
         parent::__construct();
         $this->__check();
         $this->load->library('form_validation');
+        $this->load->library('table');
+        
         
     }
 	
@@ -72,6 +74,11 @@ class Secure extends CI_Controller
         $this->session->sess_destroy();
         redirect('login');
     }
+    
+    /*
+     * Visar formulär för studenten att ändra sin information i
+     * Alla sektioner är statiskt kodade. Borde ändras
+     * */
     function edit_info()
     {
       $input = $this->__user_data();
@@ -82,16 +89,30 @@ class Secure extends CI_Controller
       $input['AllInstitute'] = array('D' => 'D', 'F' => 'F','KFKB' => 'KFKB','K' => 'K');
       $this->load->view('student/student_menu',$input);
     }
-    
+  /*
+   * Visar applikationssidan:	hostapp_view
+   * om ansökan är öppen.
+   * Ansökningstiden kollas via databastabellen "Application"
+   * */
   function application_view()
   {
   	  $input = $this->__user_data();
-  	  
 	  $this->load->model('hostapp_model');
-      $input['ansok'] = $this->hostapp_model->application_open();      $input['ViewFile'] = 'student/hostapp_view';
-      $input['AllInstitute'] = '';
-      $this->load->view('student/student_menu',$input);
-  }
+	  $bool = $this->hostapp_model->already_applied($input['UserID']);
+	  $input['ansok'] = $this->hostapp_model->application_open();
+	  $input['AllInstitute'] = '';
+	  if(!$bool)
+	  { 
+	      $input['ViewFile'] = 'student/hostapp_view';
+	  }else
+	  {
+	  	  $input['appinfo'] = $this->hostapp_model->get_application($input['UserID']);
+	  	  $input['ViewFile'] = 'student/app_view';
+	  } 
+		
+	  $this->load->view('student/student_menu',$input);
+	  
+}
 /*
  * Lägger till en applikation och en assignment
  * */
@@ -99,6 +120,10 @@ class Secure extends CI_Controller
   {
     $this->form_validation->set_rules('Namn', 'Namn', 'required');
 	$this->form_validation->set_rules('Email', 'Email', 'required');
+	$this->form_validation->set_rules('Vardtyp', 'Vardtyp', 'required');
+	$this->form_validation->set_rules('Onskat_foretag','Önskat företag','required');
+	$this->form_validation->set_rules('Kon','Kön','required');
+	
 	if($this->form_validation->run())
 	{
 	    $this->load->model('hostapp_model','',TRUE);

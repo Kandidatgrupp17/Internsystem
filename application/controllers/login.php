@@ -7,11 +7,19 @@ class Login extends CI_Controller
         $this->load->helper('url');
         $this->load->library('session');
     }
+    
+    /*
+     * visar login per automatik
+     * */
     function index()
     {
     	$input['ViewField'] = "login_view";
         $this->load->view('startpage',$input);     
     }
+    /*
+     * Sköter referenser för index sidan
+     * skickar användaren till registrering
+     * */
     function reg()
     {
     	$input['ViewField'] = "registration_view";

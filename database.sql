@@ -1,12 +1,11 @@
 CREATE DATABASE `CHARM_System` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `CHARM_System`;
-
 -- phpMyAdmin SQL Dump
 -- version 3.4.10.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 13, 2012 at 10:35 AM
+-- Generation Time: May 15, 2012 at 10:17 AM
 -- Server version: 5.5.22
 -- PHP Version: 5.3.10-1ubuntu3.1
 
@@ -26,30 +25,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Access`
+-- Table structure for table `access`
 --
 
-CREATE TABLE IF NOT EXISTS `Access` (
+CREATE TABLE IF NOT EXISTS `access` (
   `AccessID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(30) NOT NULL,
   PRIMARY KEY (`AccessID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `Access`
+-- Dumping data for table `access`
 --
 
-INSERT INTO `Access` (`AccessID`, `Name`) VALUES
+INSERT INTO `access` (`AccessID`, `Name`) VALUES
 (1, 'CHARMk'),
 (2, 'Student');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Application`
+-- Table structure for table `application`
 --
 
-CREATE TABLE IF NOT EXISTS `Application` (
+CREATE TABLE IF NOT EXISTS `application` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
   `UserID` int(11) NOT NULL,
   `Name` varchar(30) NOT NULL,
@@ -60,16 +59,15 @@ CREATE TABLE IF NOT EXISTS `Application` (
   `Onskat_foretag` varchar(50) NOT NULL,
   `Beratta_om_dig_sjalv` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `Application`
+-- Dumping data for table `application`
 --
 
-INSERT INTO `Application` (`id`, `UserID`, `Name`, `Email`, `Kon`, `Sektion`, `Vardtyp`, `Onskat_foretag`, `Beratta_om_dig_sjalv`) VALUES
-(1, 0, 'Anton Svensson', 'anton@student.chalmers.se', 'Man', 'D', 'Foretagsvard', 'Foretag1', 'Jobbade 2009, 2008, 2007.'),
-(3, 6, 'Caroline Strandberg', 'castra@student.chalmers.se', 'Kvinna', 'IT', 'Ovrigt', 'Foretag3', 'IT-Carro här!'),
-(4, 8, 'Max Sikström', 'max@charm.chalmers.se', 'Man', 'E', 'Omradesvard', 'Foretag1', 'Jag jobbar på CHARM');
+INSERT INTO `application` (`id`, `UserID`, `Name`, `Email`, `Kon`, `Sektion`, `Vardtyp`, `Onskat_foretag`, `Beratta_om_dig_sjalv`) VALUES
+(3, 6, 'Caroline Strandberg', 'castra@student.chalmers.se', 'Kvinna', 'D', 'Ovrigt', 'Foretag3', 'IT-Carro här!'),
+(5, 4, 'Oscar Carlsson', 'coscar@student.chalmers.se', 'Man', 'D', 'Foretagsvard', 'Foretag3', 'Hej');
 
 -- --------------------------------------------------------
 
@@ -89,9 +87,8 @@ CREATE TABLE IF NOT EXISTS `assignment` (
 --
 
 INSERT INTO `assignment` (`UserID`, `status`, `host_type`) VALUES
-(0, 'Vantande', 'Ej_tilldelad'),
-(6, 'Antagen', 'Foretagsvard'),
-(8, 'Svartlistad', 'Ej tilldelad');
+(4, 'Vantande', 'Ej_tilldelad'),
+(6, 'Antagen', 'Foretagsvard');
 
 -- --------------------------------------------------------
 
@@ -114,7 +111,8 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('0850088eebf51cfd53c43c4c24b05cac', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/12.04 Chromium/18.0.1025.151 Chrome/18.0.1', 1336897717, 'a:4:{s:9:"user_data";s:0:"";s:6:"UserID";s:1:"4";s:5:"Email";N;s:8:"loggedin";b:1;}');
+('32eedfd39f754f98b829674b621a938a', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/12.04 Chromium/18.0.1025.151 Chrome/18.0.1', 1337069232, ''),
+('44e86e5dc2330380e98894f1da371b5b', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/12.04 Chromium/18.0.1025.151 Chrome/18.0.1', 1337029440, 'a:4:{s:9:"user_data";s:0:"";s:6:"UserID";s:1:"0";s:5:"Email";N;s:8:"loggedin";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -169,11 +167,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`UserID`, `Email`, `Password`, `FirstName`, `LastName`, `Institute`, `Registered`, `AccessID`) VALUES
-(4, 'coscar@student.chalmers.se', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Oscar', 'Carlsson', 'D', '2012-05-03', 1),
-(0, 'anton@student.chalmers.se', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Anton', 'Svensson', 'D', '2012-05-06', 2),
+(4, 'coscar@student.chalmers.se', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Oscar', 'Carlsson', 'KfKb', '2012-05-03', 2),
+(0, 'anton@student.chalmers.se', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Anton', 'Svensson', 'E', '2012-05-06', 2),
 (6, 'castra@student.chalmers.se', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Caroline', 'Strandberg', 'D', '2012-05-07', 2),
-(8, 'max@charm.chalmers.se', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Max', 'Sikstrom', 'F', '2012-05-12', 2),
-(9, 'mirac@student.chalmers.se', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Mirac', 'Gunes', 'KFKB', '2012-05-13', 2);
+(8, 'max@charm.chalmers.se', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Max', 'Sikström', 'F', '2012-05-12', 1),
+(9, 'mirac@student.chalmers.se', '86f7e437faa5a7fce15d1ddcb9eaeaea377667b8', 'Mirac', 'Günes', 'D', '2012-05-13', 2);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

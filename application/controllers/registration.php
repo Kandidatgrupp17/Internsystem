@@ -30,17 +30,19 @@ class Registration extends CI_Controller
       return FALSE;
       
   }
-  private function __send_mail()
+  /*
+   * Skickar mail till den regisrerade mailen
+   * 
+   * 
+   * */
+  private function __send_mail($email)
   {
-		$url = base_url() . "index.php/registration/";
-		$to = "ocarlsson3@gmail.com";
+		$to = $email;
 		$subject = "Aktivering av användarkonto";	
 		// compose headers
-		$headers = "From: noreply@oscarlsson.se\r\n";
+		$headers = "From: noreply@charm.se\r\n";
 		// compose message
 		$message = "Du har registrerat dig på CHARM's hemsida";
-		$message .= "Ytterliggare ett mail kommer när värdansökan öppnar";
-		$message .= $url;
 		$message = wordwrap($message, 70);	
 		// send email
 		mail($to, $subject, $message, $headers);    
@@ -58,20 +60,21 @@ class Registration extends CI_Controller
 	$this->form_validation->set_rules('Passwordconfirm', 'Passwordconfirm', 'required');
     if($this->form_validation->run())
     {
-    if($this->input->post('passwordconfirm') == $this->input->post('password') 
-        &&  $this->is_valid_mail($this->input->post('Email')))
-    {
-    	//Här anropas users-klassen!    
-    	$this->load->model('user_model','',TRUE);   
-    	$input = $this->input->post();
-    	$input['AccessID'] = '2';
-    	$this->user_model->insert_to_db($input);  
+	    if($this->input->post('passwordconfirm') == $this->input->post('password') 
+	        &&  $this->is_valid_mail($this->input->post('Email')))
+	    {
+	    	//Här anropas users-klassen!    
+	    	$this->load->model('user_model','',TRUE);   
+	    	$input = $this->input->post();
+	    	$input['AccessID'] = '2';
+	    	$this->user_model->insert_to_db($input);  
+	    	//$email($this->input->post('Email'));
+	    }
+       		redirect('login');
     }
-        redirect('login');
-   }
    else
-   {
+  	{
         $this->index();
-    }
-}
+  	}
+  }
 }
