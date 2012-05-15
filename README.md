@@ -3,6 +3,12 @@
 ## Beskrivning
 Det här projektet är själva internsystemet åt CHARM, Chalmers Studentkårs Arbetsmarknadsdagar.
 
+## Komma-igång
+Skapa en databas enligt database.sql
+
+Skapa en database.php i application/config - Med inställningar för din databas
+
+
 ## Standarder
 Koden skall skrivas enligt följande standarder: 
 
