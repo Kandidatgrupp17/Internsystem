@@ -7,7 +7,7 @@ class Companies extends CI_Controller {
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('table');
-		$this->load->library('csvreader');  
+		$this->load->library('csvparser');  
 		
 		
 	}
@@ -15,12 +15,9 @@ class Companies extends CI_Controller {
 	function do_upload()
 	{
 		/*
-		 * Laddar upp en fil till en specifik plats. Fungerar men ej för CSV
-		 * 
-		 * 
-		 * 
+		 * Laddar upp en fil till en specifik plats.
 		 * */
-		$config['upload_path'] = '/var/www/Internsystem/CSV/';
+		$config['upload_path'] = '/wamp/www/Internsystem/CSV/';
 		$config['allowed_types'] = 'csv|txt';
         $input['error'] = null;
         
@@ -38,15 +35,15 @@ class Companies extends CI_Controller {
 		{
 			/*
 			 * Uppladdningen har gått rätt till. Nu uppdaterar vi databasen
-			 * och skriver ut resultatet.
 			 *  
 			 * */
 			$datainfo = $this->upload->data();
 			$filePath = $datainfo['full_path'];
-			$data = $this->csvreader->parse_file($filePath);  
+			$data = $this->csvparser->parse_file($filePath);  
 	        $this->load->model('company_model');
 	        $this->company_model->insert_to_db($data);
 		
+            //Och skriver ut resultatet pa upload sidan
 	        $input['companies'] = $this->company_model->get_all_companies();
 	        $input['ViewField'] = 'foretag/uploadform_view';
 			$this->load->view('CHARMk/charm_view', $input);		

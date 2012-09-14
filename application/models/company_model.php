@@ -13,10 +13,12 @@ class Company_model extends CI_Model
         for($i = 0; $i < SizeOF($array); $i++)
         {
         	$SID = $array[$i]['SID'];
+            //Om fältet for foretaget inte ar tommt sa forsoker programmet att uppdatera
         	if($this->get_company($SID)->num_rows() > 0)
         	{     		
         		$this->db->where('SID', $array[$i]['SID']);
             	$this->db->update('companies', $array[$i]);	
+            //Ifall foretaget inte existerar sedan tidigare sa satts den in med insert funktionen
         	}else
         	{
         		$this->db->insert('companies', $array[$i]);

@@ -34,6 +34,10 @@ class Assignment_model extends CI_Model
                                                  'type' => 'VARCHAR',
                                                  'constraint' => '30',
                                           ),
+                        'company' => array(
+                                                 'type' => 'VARCHAR',
+                                                 'constraint' => '30',
+                                          )
                 );
         //Create a new table in database if not exist
         $this->dbforge->add_key('UserID', TRUE);

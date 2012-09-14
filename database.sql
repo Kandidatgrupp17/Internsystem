@@ -79,6 +79,7 @@ CREATE TABLE IF NOT EXISTS `assignment` (
   `UserID` int(11) NOT NULL,
   `status` varchar(30) NOT NULL,
   `host_type` varchar(30) NOT NULL,
+  `company` varchar(30) NOT NULL,
   PRIMARY KEY (`UserID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -86,9 +87,9 @@ CREATE TABLE IF NOT EXISTS `assignment` (
 -- Dumping data for table `assignment`
 --
 
-INSERT INTO `assignment` (`UserID`, `status`, `host_type`) VALUES
-(4, 'Vantande', 'Ej_tilldelad'),
-(6, 'Antagen', 'Foretagsvard');
+INSERT INTO `assignment` (`UserID`, `status`, `host_type`, `company`) VALUES
+(4, 'Vantande', 'Ej_tilldelad', ''),
+(6, 'Antagen', 'Foretagsvard', 'ACME nr0' );
 
 -- --------------------------------------------------------
 
@@ -128,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `companies` (
   `Organisationsnamn` text NOT NULL,
   `Organisationsnummer` text NOT NULL,
   `Typ_av_organisation` text NOT NULL,
-  `Telefonnummer` int(11) NOT NULL,
+  `Telefonnummer` text NOT NULL,
   `Kommentar` text NOT NULL,
   `Antal_barstolar` int(11) NOT NULL,
   `Bildskarm` text NOT NULL,

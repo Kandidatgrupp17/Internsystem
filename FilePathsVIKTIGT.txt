@@ -1,0 +1,2 @@
+Vissa filepaths bör ändras för att funktionaliteten skall fungera på din dator.
+Ett exempel är rad 20 i "companies.php" (controller filen).

@@ -65,3 +65,5 @@ class Hostapp_model extends CI_Model
     	return false;
     }
 }
+?>
+<?php error_reporting (E_ALL ^ E_NOTICE); ?>

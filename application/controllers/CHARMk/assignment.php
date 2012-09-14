@@ -26,7 +26,8 @@ class Assignment extends CI_Controller
         {
         	$input = array('UserID' => $UserID,
         					 'status' => $this->input->post('status_'.$UserID),
-        	 				 'host_type' => $this->input->post('host_'.$UserID));
+        	 				 'host_type' => $this->input->post('host_'.$UserID),
+                             'company' => $this->input->post('company'.$UserID));
 			$this->assignment_model->update_assignment($input);
         }
         redirect('CHARMk/charm_secure/Assignment');
